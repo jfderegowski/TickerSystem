@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using SingletonSystem.Runtime;
 using UnityEngine;
 
-namespace TickerSystem.Runtime
+namespace NoReleaseDate.TickerSystem.Runtime
 {
     /// <summary>
     /// A class to handle tick actions
@@ -16,10 +16,8 @@ namespace TickerSystem.Runtime
         {
             var currentTime = Time.time;
 
-            for (var i = 0; i < _entries.Count; i++)
+            foreach (var entry in _entries)
             {
-                var entry = _entries[i];
-                
                 if (!(currentTime >= entry.nextTick)) continue;
                 
                 var deltaTime = currentTime - entry.lastTickTime;
@@ -51,7 +49,7 @@ namespace TickerSystem.Runtime
         /// <param name="newInterval"> The new interval between each tick in seconds </param>
         public void ResetTicker(Action<float> tickAction, float newInterval)
         {
-            var entry = _entries.Find(e => e.tickAction == tickAction);
+            var entry = _entries.Find(entry => entry.tickAction == tickAction);
             
             if (entry == null) return;
             
